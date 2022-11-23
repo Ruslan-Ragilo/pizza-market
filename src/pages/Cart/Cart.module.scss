@@ -1,0 +1,36 @@
+.cart {
+  max-width: 910px;
+  padding: 0 30px;
+  width: 100%;
+  margin: 0 auto;
+
+  .cartTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 10px;
+    }
+
+    h2 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 16px;
+      cursor: pointer;
+      color: #b6b6b6;
+    }
+  }
+
+  .wrapperOrder {
+    display: flex;
+    flex-direction: column;
+  }
+}
