@@ -33,4 +33,15 @@
     display: flex;
     flex-direction: column;
   }
+
+  .wrepperTotalOrder {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    p {
+      color: black;
+      font-size: 20px;
+    }
+  }
 }

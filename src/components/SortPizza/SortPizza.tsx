@@ -1,13 +1,25 @@
 import { FC, useState } from 'react'
+import { dataSortPizza } from '../../types/types'
 
-interface ISortPizzaProps {}
+interface ISortPizzaProps {
+  dataSortPizza: dataSortPizza
+  setDataSortPizza: Function
+}
 
-const sortTitle = ['популярности', 'цене', 'алфавиту']
+const sortTitle = [
+  { name: 'по популярности (по возрастанию)', sort: 'rating' },
+  { name: 'по популярности (по убыванию)', sort: '-rating' },
+  { name: 'по цене (по возрастанию)', sort: 'price' },
+  { name: 'по цене (по убыванию)', sort: '-price' },
+  { name: 'по алфавиту (по возрастанию)', sort: 'title' },
+  { name: 'по алфавиту (по убыванию)', sort: '-title' },
+]
 
-const SortPizza: FC<ISortPizzaProps> = (props) => {
-  const [isActiveSort, setActiveSort] = useState(0)
-  const [isActivePopup, setActivePopup] = useState(false)
-  const sortName = sortTitle[isActiveSort]
+const SortPizza: FC<ISortPizzaProps> = ({
+  dataSortPizza,
+  setDataSortPizza,
+}) => {
+  const [isActivePopup, setActivePopup] = useState<boolean>(false)
 
   return (
     <div className="sort">
@@ -25,7 +37,9 @@ const SortPizza: FC<ISortPizzaProps> = (props) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setActivePopup(!isActivePopup)}>{sortName}</span>
+        <span onClick={() => setActivePopup(!isActivePopup)}>
+          {dataSortPizza.name}
+        </span>
       </div>
       {isActivePopup && (
         <div className="sort__popup">
@@ -34,12 +48,12 @@ const SortPizza: FC<ISortPizzaProps> = (props) => {
               <li
                 key={i}
                 onClick={() => {
-                  setActiveSort(i)
+                  setDataSortPizza(el)
                   setActivePopup(!isActivePopup)
                 }}
-                className={isActiveSort === i ? 'active' : ''}
+                className={dataSortPizza.name === el.name ? 'active' : ''}
               >
-                {el}
+                {el.name}
               </li>
             ))}
           </ul>

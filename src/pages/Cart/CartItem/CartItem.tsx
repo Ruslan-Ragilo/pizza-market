@@ -18,7 +18,7 @@ const CartItem: FC<cartItem> = (props) => {
       </div>
       <div className={style.totalOrder}>
         <ButtonSecondary content="&mdash;" />
-        <p>2</p>
+        <p>{props.total}</p>
         <ButtonSecondary content="&#43;" />
       </div>
       <div className={style.totalOrder}>

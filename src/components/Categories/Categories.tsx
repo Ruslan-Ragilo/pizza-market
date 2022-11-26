@@ -9,17 +9,20 @@ const arrSortTitle: string[] = [
   'Закрытые',
 ]
 
-type PropsCatigories = {}
+type PropsCatigories = {
+  activeIndex: number
+  onCangeCategory: Function
+}
 
-const Catigories: React.FC<PropsCatigories> = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-
+const Catigories: React.FC<PropsCatigories> = ({
+  activeIndex,
+  onCangeCategory,
+}) => {
   const handleScrollCategories = (
     e: MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     console.log(e)
   }
-
   return (
     <div className="categories">
       <ul>
@@ -27,7 +30,7 @@ const Catigories: React.FC<PropsCatigories> = () => {
           <li
             key={i}
             onClick={() => {
-              setActiveIndex(i)
+              onCangeCategory(i)
             }}
             className={activeIndex === i ? 'active' : ''}
           >
