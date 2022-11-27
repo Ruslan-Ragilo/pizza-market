@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
-import { dataSortPizza } from '../../types/types'
 
-interface ISortPizzaProps {
-  dataSortPizza: dataSortPizza
-  setDataSortPizza: Function
-}
+import { useDispatch, useSelector } from 'react-redux'
+import { setSortData } from '../../redux/slices/sortSlice'
+import { RootState } from '../../redux/store'
+
+interface ISortPizzaProps {}
 
 const sortTitle = [
   { name: 'по популярности (по возрастанию)', sort: 'rating' },
@@ -15,11 +15,11 @@ const sortTitle = [
   { name: 'по алфавиту (по убыванию)', sort: '-title' },
 ]
 
-const SortPizza: FC<ISortPizzaProps> = ({
-  dataSortPizza,
-  setDataSortPizza,
-}) => {
+const SortPizza: FC<ISortPizzaProps> = () => {
   const [isActivePopup, setActivePopup] = useState<boolean>(false)
+
+  const dispath = useDispatch()
+  const getSortData = useSelector((state: RootState) => state.sortReducer)
 
   return (
     <div className="sort">
@@ -38,7 +38,7 @@ const SortPizza: FC<ISortPizzaProps> = ({
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setActivePopup(!isActivePopup)}>
-          {dataSortPizza.name}
+          {getSortData.name}
         </span>
       </div>
       {isActivePopup && (
@@ -48,10 +48,10 @@ const SortPizza: FC<ISortPizzaProps> = ({
               <li
                 key={i}
                 onClick={() => {
-                  setDataSortPizza(el)
+                  dispath(setSortData(el))
                   setActivePopup(!isActivePopup)
                 }}
-                className={dataSortPizza.name === el.name ? 'active' : ''}
+                className={getSortData.name === el.name ? 'active' : ''}
               >
                 {el.name}
               </li>

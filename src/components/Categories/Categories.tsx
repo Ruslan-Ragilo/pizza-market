@@ -1,38 +1,28 @@
-import { MouseEvent, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCategoriesData } from '../../redux/slices/categoriesSlice'
+import { RootState } from '../../redux/store'
 
-const arrSortTitle: string[] = [
-  'Все',
-  'Мясные',
-  'Вегетарианская',
-  'Гриль',
-  'Острые',
-  'Закрытые',
-]
+const arrSortTitle: string[] = ['Все', 'Мясные', 'Вегетарианские', 'Острые']
 
-type PropsCatigories = {
-  activeIndex: number
-  onCangeCategory: Function
-}
+const Catigories: React.FC = () => {
+  const getCategoriesData = useSelector(
+    (state: RootState) => state.categoriesReducer.activeIndex
+  )
 
-const Catigories: React.FC<PropsCatigories> = ({
-  activeIndex,
-  onCangeCategory,
-}) => {
-  const handleScrollCategories = (
-    e: MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    console.log(e)
-  }
+  const dispatch = useDispatch()
+
   return (
     <div className="categories">
       <ul>
         {arrSortTitle.map((el, i) => (
           <li
             key={i}
-            onClick={() => {
-              onCangeCategory(i)
+            onClick={(e) => {
+              dispatch(
+                setCategoriesData({ value: el.toLowerCase(), activeIndex: i })
+              )
             }}
-            className={activeIndex === i ? 'active' : ''}
+            className={getCategoriesData === i ? 'active' : ''}
           >
             {el}
           </li>
