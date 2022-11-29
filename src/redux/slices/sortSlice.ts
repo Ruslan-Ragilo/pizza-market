@@ -15,12 +15,15 @@ export const sortSlice = createSlice({
   name: 'sort',
   initialState,
   reducers: {
-    setSortData: (state, action: PayloadAction<SortState>) => {
-      return (state = { ...action.payload })
+    setSort: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
+    },
+    setOrderSort: (state, action: PayloadAction<string>) => {
+      state.sort = action.payload
     },
   },
 })
 
-export const { setSortData } = sortSlice.actions
+export const { setSort, setOrderSort } = sortSlice.actions
 
 export default sortSlice.reducer

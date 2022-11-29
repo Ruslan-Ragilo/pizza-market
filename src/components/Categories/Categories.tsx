@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setCategoriesData } from '../../redux/slices/categoriesSlice'
+import {
+  setActiveIndex,
+  setCategories,
+} from '../../redux/slices/categoriesSlice'
 import { RootState } from '../../redux/store'
 
 const arrSortTitle: string[] = ['Все', 'Мясные', 'Вегетарианские', 'Острые']
@@ -18,9 +21,8 @@ const Catigories: React.FC = () => {
           <li
             key={i}
             onClick={(e) => {
-              dispatch(
-                setCategoriesData({ value: el.toLowerCase(), activeIndex: i })
-              )
+              dispatch(setActiveIndex(i))
+              dispatch(setCategories(el.toLocaleLowerCase()))
             }}
             className={getCategoriesData === i ? 'active' : ''}
           >

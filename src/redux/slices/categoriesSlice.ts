@@ -15,12 +15,15 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    setCategoriesData: (state, action: PayloadAction<CategoriesState>) => {
-      return (state = action.payload)
+    setActiveIndex: (state, action: PayloadAction<number>) => {
+      state.activeIndex = action.payload
+    },
+    setCategories: (state, action: PayloadAction<string>) => {
+      state.value = action.payload
     },
   },
 })
 
-export const { setCategoriesData } = categoriesSlice.actions
+export const { setActiveIndex, setCategories } = categoriesSlice.actions
 
 export default categoriesSlice.reducer

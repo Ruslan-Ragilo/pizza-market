@@ -20,7 +20,7 @@ export type PizzaList = {
   types: string[]
   sizes: number[]
   price: number
-  category: number
+  category: string[]
   rating: number
 }
 

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { setSortData } from '../../redux/slices/sortSlice'
+import { setSort, setOrderSort } from '../../redux/slices/sortSlice'
 import { RootState } from '../../redux/store'
 
 interface ISortPizzaProps {}
@@ -48,7 +48,8 @@ const SortPizza: FC<ISortPizzaProps> = () => {
               <li
                 key={i}
                 onClick={() => {
-                  dispath(setSortData(el))
+                  dispath(setSort(el.name))
+                  dispath(setOrderSort(el.sort))
                   setActivePopup(!isActivePopup)
                 }}
                 className={getSortData.name === el.name ? 'active' : ''}

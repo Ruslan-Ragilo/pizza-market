@@ -17,6 +17,9 @@ export function Home(props: IHomeProps) {
   const [pizzaList, setPizzaList] = React.useState<PizzaList[]>([])
 
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
+  const getSearchData = useSelector(
+    (state: RootState) => state.searchReducer.value
+  )
   const getSortData = useSelector((state: RootState) => state.sortReducer)
   const getCategoriesData = useSelector(
     (state: RootState) => state.categoriesReducer
@@ -34,24 +37,21 @@ export function Home(props: IHomeProps) {
   React.useEffect(() => {
     const order = getSortData.sort.includes('-') ? 'desc' : 'asc'
     const sortBy = getSortData.sort.replace('-', '')
-    // const category = activeIndex ? `category=${activeIndex}` : ''
 
     setIsLoading(true)
 
     axios
       .get(
-        `https://637be23f72f3ce38ea970f85.mockapi.io/items?search=${''}&page=${currentPage}&limit=4&sortby=${sortBy}&order=${order}`
+        `https://637be23f72f3ce38ea970f85.mockapi.io/items?search=${getSearchData}&page=${currentPage}&limit=4&sortby=${sortBy}&order=${order}`
       )
       .then((data) => {
         setPizzaList(data.data)
         setIsLoading(false)
-
-        // console.log(pizzasFilterCategory)
       })
       .catch((e) => console.log(e))
 
     // window.scrollTo(0, 0)
-  }, [getSortData, currentPage, getCategoriesData])
+  }, [getSortData, currentPage, getCategoriesData, getSearchData])
 
   return (
     <div className="container">
@@ -72,14 +72,10 @@ export function Home(props: IHomeProps) {
             ))
           : [...new Array(4)].map((_, i) => <SceletonPizzaCard key={i} />)}
       </div>
-      {/* {FilterPizza.length != 0 && !isLoading ? ( */}
       <Pagination
         currentPage={currentPage}
         setCurrentPage={(number) => setCurrentPage(number)}
       />
-      {/* ) : (
-        'Пицц не найдено'
-      )} */}
     </div>
   )
 }

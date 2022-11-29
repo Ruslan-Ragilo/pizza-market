@@ -1,12 +1,13 @@
-import { useContext } from 'react'
-import { SearchContext } from '../../App'
-import { search } from '../../types/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSearchData } from '../../redux/slices/searchSlice'
+import { RootState } from '../../redux/store'
 import style from './Search.module.scss'
 
 interface ISearchProps {}
 
 const Search: React.FunctionComponent<ISearchProps> = (props) => {
-  const { searchValue, setSearchValue } = useContext<search>(SearchContext)
+  const getSearchData = useSelector((state: RootState) => state.searchReducer)
+  const dispatch = useDispatch()
 
   return (
     <div className={style.wrapperSearch}>
@@ -25,8 +26,8 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
         </g>
       </svg>
       <input
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={getSearchData.value}
+        onChange={(e) => dispatch(setSearchData(e.target.value))}
         placeholder="Введите название пиццы..."
         type="text"
         className={style.serachInput}
